@@ -1,5 +1,17 @@
 import { createApp } from 'vue'
-import './style.css'
-import App from './App.vue'
+import PrimeVue from 'primevue/config'
+import Aura from '@primevue/themes/aura'
+import '@unocss/reset/tailwind.css'
 
-createApp(App).mount('#app')
+import App from './App.vue'
+import './assets/main.css'
+import 'virtual:uno.css'
+
+const app = createApp(App)
+
+app.use(PrimeVue, {
+  theme: {
+    preset: Aura,
+  },
+})
+app.mount('#app')
