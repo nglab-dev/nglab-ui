@@ -11,8 +11,13 @@
     "lint:fix": "eslint . --fix"
   },
   "dependencies": {
+    "@unhead/vue": "^1.9.14",
+    "@unocss/reset": "^0.61.0",
+    "@vueuse/core": "^10.11.0",
+    "@vueuse/head": "^2.0.0",
     "nprogress": "^0.2.0",
     "pinia": "^2.1.7",
+    "vee-validate": "^4.13.1",
     "vue": "^3.4.29",
     "vue-router": "^4.4.0",
     "vuetify": "^3.6.10"
@@ -22,7 +27,6 @@
     "@types/node": "^20.14.9",
     "@types/nprogress": "^0.2.3",
     "@unocss/eslint-config": "^0.61.0",
-    "@unocss/reset": "^0.61.0",
     "@vitejs/plugin-vue": "^5.0.5",
     "eslint": "^9.5.0",
     "eslint-plugin-format": "^0.1.2",

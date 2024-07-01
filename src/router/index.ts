@@ -1,9 +1,5 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-import NProgress from 'nprogress'
-import { setupGuard } from './guard'
 import AppLayout from '@/layouts/default.vue'
-
-NProgress.configure({ showSpinner: false })
 
 const router = createRouter({
   history: createWebHashHistory(),
@@ -25,19 +21,6 @@ const router = createRouter({
       component: () => import('@/views/login/index.vue'),
     },
   ],
-  strict: true,
-  scrollBehavior: () => ({ left: 0, top: 0 }),
-})
-
-setupGuard(router)
-
-router.beforeEach((to, from) => {
-  if (to.path !== from.path)
-    NProgress.start()
-})
-
-router.afterEach(() => {
-  NProgress.done()
 })
 
 export default router

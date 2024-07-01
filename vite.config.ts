@@ -19,6 +19,8 @@ export default defineConfig({
     AutoImport({
       imports: [
         'vue',
+        '@vueuse/head',
+        '@vueuse/core',
         {
           'vue-router/auto': ['useRoute', 'useRouter'],
         },
