@@ -1,19 +1,18 @@
 import { createApp } from 'vue'
-import PrimeVue from 'primevue/config'
-import Aura from '@primevue/themes/aura'
+import { createVuetify } from 'vuetify'
 
 import App from './App.vue'
 import router from './router'
-import './assets/main.css'
-import 'virtual:uno.css'
+import pinia from './stores'
+import 'uno.css'
+import 'vuetify/styles'
+
+const vuetify = createVuetify()
 
 const app = createApp(App)
 
+app.use(vuetify)
 app.use(router)
-app.use(PrimeVue, {
-  theme: {
-    preset: Aura,
-  },
-})
+app.use(pinia)
 
 app.mount('#app')

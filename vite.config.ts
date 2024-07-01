@@ -1,40 +1,53 @@
-import path from 'node:path'
+import { URL, fileURLToPath } from 'node:url'
 import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
+import Vue from '@vitejs/plugin-vue'
+import UnoCSS from 'unocss/vite'
 import Components from 'unplugin-vue-components/vite'
 import AutoImport from 'unplugin-auto-import/vite'
-import { PrimeVueResolver } from '@primevue/auto-import-resolver'
-import UnoCSS from 'unocss/vite'
+import Vuetify, { transformAssetUrls } from 'vite-plugin-vuetify'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: './',
   resolve: {
     alias: {
-      '~/': `${path.resolve(__dirname, 'src')}/`,
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
   plugins: [
-    vue(),
-    UnoCSS(),
+    // https://github.com/antfu/unplugin-auto-import
     AutoImport({
       imports: [
         'vue',
-        'vue-router',
+        {
+          'vue-router/auto': ['useRoute', 'useRouter'],
+        },
       ],
       dts: 'src/auto-imports.d.ts',
-      dirs: [
-        'src/composables',
-        'src/stores',
-      ],
       vueTemplate: true,
     }),
+
+    // https://github.com/antfu/unplugin-vue-components
     Components({
-      extensions: ['vue', 'md'],
-      include: [/\.vue$/, /\.vue\?vue/, /\.md$/],
-      resolvers: [
-        PrimeVueResolver(),
-      ],
       dts: 'src/components.d.ts',
     }),
+
+    // https://vuejs.org/
+    Vue({
+      template: { transformAssetUrls },
+    }),
+
+    // https://github.com/antfu/unocss
+    // see uno.config.ts for config
+    UnoCSS(),
+
+    // https://github.com/vuetifyjs/vuetify-loader/tree/master/packages/vite-plugin#readme
+    Vuetify({
+      autoImport: true,
+      styles: {
+        configFile: 'src/styles/settings.scss',
+      },
+    }),
   ],
+  define: { 'process.env': {} },
 })
