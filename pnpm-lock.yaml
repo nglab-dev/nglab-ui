@@ -36,6 +36,9 @@ importers:
       '@unocss/eslint-config':
         specifier: ^0.61.0
         version: 0.61.0(eslint@9.6.0)(typescript@5.5.2)
+      '@unocss/reset':
+        specifier: ^0.61.0
+        version: 0.61.0
       '@vitejs/plugin-vue':
         specifier: ^5.0.5
         version: 5.0.5(vite@5.3.2(@types/node@20.14.9)(sass@1.77.6))(vue@3.4.31(typescript@5.5.2))

@@ -4,8 +4,9 @@ import { createVuetify } from 'vuetify'
 import App from './App.vue'
 import router from './router'
 import pinia from './stores'
-import 'uno.css'
+import '@unocss/reset/tailwind.css'
 import 'vuetify/styles'
+import 'uno.css'
 
 const vuetify = createVuetify()
 
