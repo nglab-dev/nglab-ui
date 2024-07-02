@@ -1,130 +1,67 @@
 <script setup>
-// const logform = ref();
-import { Form } from 'vee-validate'
+const username = ref('')
+const password = ref('')
+const router = useRouter()
 
-const checkbox = ref(false)
-const valid = ref(false)
-const show1 = ref(false)
-const password = ref('admin123')
-const username = ref('info@codedthemes.com')
+function handleLogin() {
+  router.replace('/')
+}
 </script>
 
 <template>
-  <v-row class="h-screen" no-gutters>
-    <!---Left Part -->
-    <v-col cols="12" class="d-flex align-center bg-lightprimary">
-      <v-container>
-        <div class="pa-sm-12 pa-7">
-          <v-row justify="center">
-            <v-col cols="12" lg="10" xl="6" md="7">
-              <v-card elevation="0" class="loginBox">
-                <v-card variant="outlined">
-                  <v-card-text class="pa-9">
-                    <!---Left Part Logo -->
-                    <v-row>
-                      <v-col cols="12" class="text-center">
-                        <h2 class="text-secondary text-h2 mt-8">
-                          Hi, Welcome Back
-                        </h2>
-                        <h4 class="text-disabled text-h4 mt-3">
-                          Enter your credentials to continue
-                        </h4>
-                      </v-col>
-                    </v-row>
-                    <!---Left Part Logo -->
+  <div class="container relative hidden h-full flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
+    <div class="relative hidden h-full flex-col bg-muted p-10 text-white lg:flex dark:border-r">
+      <div class="absolute inset-0 bg-zinc-900" />
+      <div class="relative z-20 flex items-center text-lg font-medium">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 h-6 w-6">
+          <path d="M15 6v12a3 3 0 1 0 3-3H6a3 3 0 1 0 3 3V6a3 3 0 1 0-3 3h12a3 3 0 1 0-3-3" />
+        </svg>
+        Nglab
+      </div>
 
-                    <!---Left Part Form -->
-                    <h5 class="text-h5 my-4 mb-8 text-center">
-                      Sign in with Email address
-                    </h5>
-                    <Form class="loginForm mt-7">
-                      <v-text-field
-                        v-model="username"
-                        label="Email Address / Username"
-                        class="mb-8 mt-4"
-                        required
-                        density="comfortable"
-                        hide-details="auto"
-                        variant="outlined"
-                        color="primary"
-                      />
-                      <v-text-field
-                        v-model="password"
-                        label="Password"
-                        required
-                        density="comfortable"
-                        variant="outlined"
-                        color="primary"
-                        hide-details="auto"
-                        :append-icon="show1 ? '$eye' : '$eyeOff'"
-                        :type="show1 ? 'text' : 'password'"
-                        class="pwdInput"
-                        @click:append="show1 = !show1"
-                      />
-                      <div class="d-sm-flex align-center mb-sm-0 mb-7 mt-2">
-                        <v-checkbox
-                          v-model="checkbox"
-                          label="Remember me?"
-                          required
-                          color="primary"
-                          class="ms-n2"
-                          hide-details
-                        />
-                        <div class="ml-auto">
-                          <a href="javascript:void(0)" class="text-primary text-decoration-none">Forgot password?</a>
-                        </div>
-                      </div>
-                      <v-btn color="secondary" block class="mt-2" variant="flat" size="large" :disabled="valid" type="submit">
-                        Sign In
-                      </v-btn>
-                    </Form>
-                    <!---Left Part Form -->
-                  </v-card-text>
-                </v-card>
-              </v-card>
-            </v-col>
-          </v-row>
+      <div class="relative z-20 mt-auto">
+        <blockquote class="space-y-2">
+          <p class="text-lg">
+            “Nglab is the next generation laboratory information system.”
+          </p>
+          <footer class="text-sm">
+            xc.chen
+          </footer>
+        </blockquote>
+      </div>
+    </div>
+
+    <div class="lg:p-8">
+      <div class="mx-auto w-full flex flex-col justify-center sm:w-[420px] space-y-6">
+        <div class="flex flex-col text-center space-y-2">
+          <h1 class="text-2xl font-semibold tracking-tight">
+            Login an account
+          </h1>
+          <p class="text-sm text-muted-foreground">
+            Enter your email below to login your account
+          </p>
         </div>
-      </v-container>
-    </v-col>
-    <!---Left Part -->
-  </v-row>
+
+        <div class="grid gap-6">
+          <form>
+            <div class="grid gap-2">
+              <div class="grid gap-1">
+                <label for="username" class="mb-2 block font-medium">Username</label>
+                <InputText id="username" v-model="username" type="text" placeholder="Username" class="mb-5 w-full" style="padding: 1rem" />
+              </div>
+              <div class="grid gap-1">
+                <label for="password" class="mb-2 block font-medium">Password</label>
+                <Password id="password" v-model="password" placeholder="Password" :feedback="false" :toggle-mask="true" class="mb-3 w-full" input-class="w-full" :input-style="{ padding: '1rem' }" />
+              </div>
+              <Button label="Sign In" class="w-full p-3 text-xl" @click="handleLogin" />
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <style lang="scss">
-.loginBox {
-  max-width: 475px;
-  margin: 0 auto;
-}
 
-.custom-devider {
-  border-color: rgba(0, 0, 0, 0.08) !important;
-}
-.googleBtn {
-  border-color: rgba(0, 0, 0, 0.08);
-  margin: 30px 0 20px 0;
-}
-.outlinedInput .v-field {
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  box-shadow: none;
-}
-.orbtn {
-  padding: 2px 40px;
-  border-color: rgba(0, 0, 0, 0.08);
-  margin: 20px 15px;
-}
-.pwdInput {
-  position: relative;
-  .v-input__append {
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-  }
-}
-.loginForm {
-  .v-text-field .v-field--active input {
-    font-weight: 500;
-  }
-}
 </style>
