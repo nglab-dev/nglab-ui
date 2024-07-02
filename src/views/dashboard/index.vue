@@ -2,7 +2,5 @@
 </script>
 
 <template>
-  <v-btn>
-    Button
-  </v-btn>
+  dashboard
 </template>

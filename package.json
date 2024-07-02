@@ -17,6 +17,7 @@
     "@vueuse/head": "^2.0.0",
     "nprogress": "^0.2.0",
     "pinia": "^2.1.7",
+    "primeicons": "^7.0.0",
     "primevue": "4.0.0-rc.3",
     "tailwindcss-primeui": "^0.3.2",
     "vee-validate": "^4.13.1",
