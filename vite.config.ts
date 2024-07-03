@@ -4,6 +4,7 @@ import Vue from '@vitejs/plugin-vue'
 import Components from 'unplugin-vue-components/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import { PrimeVueResolver } from '@primevue/auto-import-resolver'
+import UnoCSS from 'unocss/vite'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -14,6 +15,9 @@ export default defineConfig({
     },
   },
   plugins: [
+    // https://vuejs.org/
+    Vue(),
+
     // https://github.com/antfu/unplugin-auto-import
     AutoImport({
       imports: [
@@ -26,6 +30,10 @@ export default defineConfig({
       ],
       dts: 'src/auto-imports.d.ts',
       vueTemplate: true,
+      dirs: [
+        'src/composables',
+        'src/stores',
+      ],
     }),
 
     // https://github.com/antfu/unplugin-vue-components
@@ -36,9 +44,8 @@ export default defineConfig({
       ],
     }),
 
-    // https://vuejs.org/
-    Vue(),
-
+    // https://unocss.dev/
+    UnoCSS(),
   ],
   define: { 'process.env': {} },
 })

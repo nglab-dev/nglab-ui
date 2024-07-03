@@ -7,6 +7,8 @@ import router from './router'
 import pinia from './stores'
 
 import 'primeicons/primeicons.css'
+import '@unocss/reset/tailwind.css'
+import 'virtual:uno.css'
 import './styles/main.css'
 
 const app = createApp(App)
@@ -14,6 +16,9 @@ const app = createApp(App)
 app.use(PrimeVue, {
   theme: {
     preset: Aura,
+    options: {
+      darkModeSelector: '.dark',
+    },
   },
 })
 

@@ -9,8 +9,8 @@ function handleLogin() {
 </script>
 
 <template>
-  <div class="container relative hidden h-full flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
-    <div class="relative hidden h-full flex-col bg-muted p-10 text-white lg:flex dark:border-r">
+  <div class="relative hidden h-full flex-col items-center justify-center container md:grid lg:grid-cols-2 lg:max-w-none lg:px-0">
+    <div class="bg-muted relative hidden h-full flex-col p-10 text-white lg:flex dark:(border-r border-[#27272a])">
       <div class="absolute inset-0 bg-zinc-900" />
       <div class="relative z-20 flex items-center text-lg font-medium">
         <AppLogo />
@@ -35,7 +35,7 @@ function handleLogin() {
           <h1 class="text-3xl font-semibold tracking-tight">
             Login an account
           </h1>
-          <p class="text-sm text-muted-foreground">
+          <p class="text-muted-foreground text-sm">
             Enter your email below to login your account
           </p>
         </div>

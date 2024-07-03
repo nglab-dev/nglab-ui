@@ -20,6 +20,12 @@ const router = createRouter({
       name: 'login',
       component: () => import('@/views/login/index.vue'),
     },
+    // 404
+    {
+      path: '/:pathMatch(.*)*',
+      name: 'notFound',
+      component: () => import('@/views/error/404.vue'),
+    },
   ],
 })
 

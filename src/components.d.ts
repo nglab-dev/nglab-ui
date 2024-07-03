@@ -9,13 +9,19 @@ declare module 'vue' {
   export interface GlobalComponents {
     AppFooter: typeof import('./components/layout/AppFooter.vue')['default']
     AppLogo: typeof import('./components/layout/AppLogo.vue')['default']
+    AppMenu: typeof import('./components/layout/AppMenu.vue')['default']
     AppNavbar: typeof import('./components/layout/AppNavbar.vue')['default']
     Avatar: typeof import('primevue/avatar')['default']
+    Badge: typeof import('primevue/badge')['default']
     Button: typeof import('primevue/button')['default']
     InputText: typeof import('primevue/inputtext')['default']
+    Menubar: typeof import('primevue/menubar')['default']
     Password: typeof import('primevue/password')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    Splitter: typeof import('primevue/splitter')['default']
+    SplitterPanel: typeof import('primevue/splitterpanel')['default']
+    TieredMenu: typeof import('primevue/tieredmenu')['default']
     Toolbar: typeof import('primevue/toolbar')['default']
   }
 }

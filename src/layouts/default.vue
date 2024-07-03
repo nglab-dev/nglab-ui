@@ -2,9 +2,13 @@
 </script>
 
 <template>
-  <main class="relative w-full">
+  <section class="relative min-h-screen flex flex-col">
     <AppNavbar />
-    <router-view />
-    <AppFooter />
-  </main>
+    <section class="flex flex-1 flex-col">
+      <main class="flex-1 p-2">
+        <router-view />
+      </main>
+      <AppFooter />
+    </section>
+  </section>
 </template>
