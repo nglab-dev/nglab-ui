@@ -1,11 +1,26 @@
 <script setup>
-const username = ref('')
-const password = ref('')
+import { useForm } from 'vee-validate'
+import { setLocale } from '@vee-validate/i18n'
+import * as yup from 'yup'
+
 const router = useRouter()
 
-function handleLogin() {
+const { errors, defineField, handleSubmit } = useForm({
+  validationSchema: yup.object({
+    username: yup.string().required(),
+    password: yup.string().required(),
+  }),
+})
+
+setLocale('zh_CN')
+
+const [username, usernameAttrs] = defineField('username')
+const [password, passwordAttrs] = defineField('password')
+
+const handleLogin = handleSubmit((_values) => {
+  // TODO
   router.replace('/')
-}
+})
 </script>
 
 <template>
@@ -45,11 +60,13 @@ function handleLogin() {
             <div class="grid gap-2">
               <div class="grid gap-1">
                 <label for="username" class="mb-2 block font-medium">Username</label>
-                <InputText id="username" v-model="username" type="text" placeholder="Username" class="mb-5 w-full" style="padding: 1rem" />
+                <InputText id="username" v-model="username" type="text" placeholder="Username" class="w-full" v-bind="usernameAttrs" style="padding: 1rem" />
+                <small id="username-help" class="mb-3 c-red-6">{{ errors.username }}</small>
               </div>
               <div class="grid gap-1">
                 <label for="password" class="mb-2 block font-medium">Password</label>
-                <Password id="password" v-model="password" placeholder="Password" :feedback="false" :toggle-mask="true" class="mb-3 w-full" input-class="w-full" :input-style="{ padding: '1rem' }" />
+                <Password id="password" v-model="password" placeholder="Password" :feedback="false" :toggle-mask="true" v-bind="passwordAttrs" class="w-full" input-class="w-full" :input-style="{ padding: '1rem' }" />
+                <small id="username-help" class="mb-3 c-red-6">{{ errors.password }}</small>
               </div>
               <Button label="Sign In" class="w-full p-3 text-xl" @click="handleLogin" />
             </div>

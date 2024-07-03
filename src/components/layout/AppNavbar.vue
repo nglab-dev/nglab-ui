@@ -63,9 +63,9 @@ function toggle(event: Event) {
         </a>
       </template>
       <template #end>
-        <div class="flex items-center gap-2">
+        <div class="flex items-center gap-4">
           <button type="button" class="navbar-item" @click="toggleDark()">
-            <i class="pi pi-moon dark:pi-sun" />
+            <i class="pi" :class="[{ 'pi-moon': isDark, 'pi-sun': !isDark }]" />
           </button>
           <Avatar image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png" class="h-8 w-8 cursor-pointer" @click="toggle " />
           <TieredMenu id="overlay_tmenu" ref="userMenuRef" :model="userActions" popup>
