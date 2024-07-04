@@ -5,6 +5,7 @@ import Aura from '@primevue/themes/aura'
 import App from './App.vue'
 import router from './router'
 import pinia from './stores'
+import i18n from './locales'
 
 import 'primeicons/primeicons.css'
 import '@unocss/reset/tailwind.css'
@@ -24,5 +25,6 @@ app.use(PrimeVue, {
 
 app.use(router)
 app.use(pinia)
+app.use(i18n)
 
 app.mount('#app')

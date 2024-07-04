@@ -1,7 +1,9 @@
 <script setup>
 import { updatePreset } from '@primevue/themes'
+import { loadLanguageAsync } from '@/locales'
 
 onMounted(() => {
+  loadLanguageAsync('en')
   // TODO user config
   updatePreset({
     semantic: {

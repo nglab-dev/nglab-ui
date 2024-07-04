@@ -23,6 +23,7 @@ export default defineConfig({
     AutoImport({
       imports: [
         'vue',
+        'vue-i18n',
         '@vueuse/head',
         '@vueuse/core',
         {
@@ -57,7 +58,7 @@ export default defineConfig({
       output: {
         manualChunks: {
           primevue: ['primevue/config', '@primevue/themes'],
-          vue: ['vue', 'vue-router', 'pinia', '@vueuse/core'],
+          vue: ['vue', 'vue-router', 'pinia', '@vueuse/core', 'vue-i18n'],
         },
       },
     },

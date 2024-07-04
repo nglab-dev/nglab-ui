@@ -8,6 +8,7 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     AppFooter: typeof import('./components/layout/AppFooter.vue')['default']
+    AppLocalePicker: typeof import('./components/layout/AppLocalePicker.vue')['default']
     AppLogo: typeof import('./components/layout/AppLogo.vue')['default']
     AppNavbar: typeof import('./components/layout/AppNavbar.vue')['default']
     Avatar: typeof import('primevue/avatar')['default']

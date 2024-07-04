@@ -2,6 +2,9 @@
 import { useForm } from 'vee-validate'
 import { setLocale } from '@vee-validate/i18n'
 import * as yup from 'yup'
+import AppLocalePicker from '@/components/layout/AppLocalePicker.vue'
+
+const { t } = useI18n()
 
 const router = useRouter()
 
@@ -24,7 +27,11 @@ const handleLogin = handleSubmit((_values) => {
 </script>
 
 <template>
-  <div class="relative hidden h-full flex-col items-center justify-center container md:grid lg:grid-cols-2 lg:max-w-none lg:px-0">
+  <div class="relative mx-auto hidden h-full w-full flex-col items-center justify-center container md:grid lg:grid-cols-2 lg:max-w-none lg:px-0">
+    <div class="absolute right-4 top-4 md:right-8 md:top-8">
+      <AppLocalePicker />
+    </div>
+
     <div class="bg-muted relative hidden h-full flex-col p-10 text-white lg:flex dark:(border-r border-[#27272a])">
       <div class="absolute inset-0 bg-zinc-900" />
       <div class="relative z-20 flex items-center text-lg font-medium">
@@ -68,7 +75,7 @@ const handleLogin = handleSubmit((_values) => {
                 <Password id="password" v-model="password" placeholder="Password" :feedback="false" :toggle-mask="true" :invalid="errors.password" v-bind="passwordAttrs" class="w-full" input-class="w-full" :input-style="{ padding: '1rem' }" />
                 <small id="username-help" class="mb-3 c-red-6">{{ errors.password }}</small>
               </div>
-              <Button label="Sign In" class="w-full p-3 text-xl" @click="handleLogin" />
+              <Button :label="t('user.sign_in')" class="text-xl" w-full p-3 @click="handleLogin" />
             </div>
           </form>
         </div>
