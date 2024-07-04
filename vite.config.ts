@@ -5,6 +5,7 @@ import Components from 'unplugin-vue-components/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import { PrimeVueResolver } from '@primevue/auto-import-resolver'
 import UnoCSS from 'unocss/vite'
+import VueDevTools from 'vite-plugin-vue-devtools'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -46,6 +47,19 @@ export default defineConfig({
 
     // https://unocss.dev/
     UnoCSS(),
+
+    // https://devtools-next.vuejs.org/
+    VueDevTools(),
   ],
   define: { 'process.env': {} },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          primevue: ['primevue/config', '@primevue/themes'],
+          vue: ['vue', 'vue-router', 'pinia', '@vueuse/core'],
+        },
+      },
+    },
+  },
 })
