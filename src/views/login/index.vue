@@ -3,10 +3,13 @@ import { useForm } from 'vee-validate'
 import { setLocale } from '@vee-validate/i18n'
 import * as yup from 'yup'
 import AppLocalePicker from '@/components/layout/AppLocalePicker.vue'
+import { useUserStore } from '@/stores/modules/user'
 
 const { t } = useI18n()
 
 const router = useRouter()
+
+const loading = ref(false)
 
 const { errors, defineField, handleSubmit } = useForm({
   validationSchema: yup.object({
@@ -20,9 +23,22 @@ setLocale('zh_CN')
 const [username, usernameAttrs] = defineField('username')
 const [password, passwordAttrs] = defineField('password')
 
-const handleLogin = handleSubmit((_values) => {
-  // TODO
-  router.replace('/')
+const handleLogin = handleSubmit((values) => {
+  loading.value = true
+  useUserStore()
+    .login({
+      username: values.username,
+      password: values.password,
+    })
+    .then(() => {
+      userToken.value && router.replace('/')
+    })
+    .catch((e) => {
+      console.error(e)
+    })
+    .finally(() => {
+      loading.value = false
+    })
 })
 </script>
 
@@ -75,13 +91,14 @@ const handleLogin = handleSubmit((_values) => {
                 <Password id="password" v-model="password" placeholder="Password" :feedback="false" :toggle-mask="true" :invalid="errors.password" v-bind="passwordAttrs" class="w-full" input-class="w-full" :input-style="{ padding: '1rem' }" />
                 <small id="username-help" class="mb-3 c-red-6">{{ errors.password }}</small>
               </div>
-              <Button :label="t('user.sign_in')" class="text-xl" w-full p-3 @click="handleLogin" />
+              <Button :label="t('user.sign_in')" class="text-xl" w-full p-3 :loading="loading" @click="handleLogin" />
             </div>
           </form>
         </div>
       </div>
     </div>
   </div>
+  <Toast position="top-center" />
 </template>
 
 <style lang="scss">
