@@ -9,6 +9,9 @@ import {
 } from 'unocss'
 
 export default defineConfig({
+  shortcuts: [
+    ['fcc', 'flex items-center justify-center'],
+  ],
   presets: [
     presetUno(),
     presetAttributify(),

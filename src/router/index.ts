@@ -1,13 +1,13 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import NProgress from 'nprogress'
-import AppLayout from '@/layouts/default.vue'
+import AppLayout from '@/layouts/index.vue'
 import 'nprogress/nprogress.css'
 
 NProgress.configure({ showSpinner: false })
 
-const WHITE_LIST = [
-  { name: 'login', children: [] },
-]
+// const WHITE_LIST = [
+//   { name: 'login', children: [] },
+// ]
 
 const router = createRouter({
   history: createWebHistory(),
@@ -37,24 +37,24 @@ const router = createRouter({
   ],
 })
 
-router.beforeEach(async (to, from, next) => {
-  NProgress.start()
+// router.beforeEach(async (to, from, next) => {
+//   NProgress.start()
 
-  if (!userToken.value) {
-    if (WHITE_LIST.some(el => el.name === to.name))
-      return next()
-    return next('/login')
-  }
+//   if (!userToken.value) {
+//     if (WHITE_LIST.some(el => el.name === to.name))
+//       return next()
+//     return next('/login')
+//   }
 
-  if (to.path === '/login') {
-    return next({ path: '/' })
-  }
+//   if (to.path === '/login') {
+//     return next({ path: '/' })
+//   }
 
-  return next()
-})
+//   return next()
+// })
 
-router.afterEach(() => {
-  NProgress.done()
-})
+// router.afterEach(() => {
+//   NProgress.done()
+// })
 
 export default router

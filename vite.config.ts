@@ -4,14 +4,15 @@ import { type ConfigEnv, type UserConfigExport, loadEnv } from 'vite'
 import Vue from '@vitejs/plugin-vue'
 import Components from 'unplugin-vue-components/vite'
 import AutoImport from 'unplugin-auto-import/vite'
-import { PrimeVueResolver } from '@primevue/auto-import-resolver'
 import UnoCSS from 'unocss/vite'
 import VueDevTools from 'vite-plugin-vue-devtools'
 import dayjs from 'dayjs'
+import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+import ElementPlus from 'unplugin-element-plus/vite'
 
 // https://vitejs.dev/config/
 export default ({ mode }: ConfigEnv): UserConfigExport => {
-  const viteEnv = loadEnv(mode, process.cwd()) as ImportMetaEnv
+  const viteEnv = loadEnv(mode, process.cwd())
 
   const { VITE_PUBLIC_PATH } = viteEnv
 
@@ -37,20 +38,29 @@ export default ({ mode }: ConfigEnv): UserConfigExport => {
             'vue-router/auto': ['useRoute', 'useRouter'],
           },
         ],
-        dts: 'src/auto-imports.d.ts',
+        dts: 'types/auto-imports.d.ts',
         vueTemplate: true,
         dirs: [
           'src/composables',
           'src/stores',
         ],
+        resolvers: [
+          ElementPlusResolver(),
+        ],
       }),
 
       // https://github.com/antfu/unplugin-vue-components
       Components({
-        dts: 'src/components.d.ts',
+        dts: 'types/components.d.ts',
         resolvers: [
-          PrimeVueResolver(),
+          ElementPlusResolver(),
         ],
+      }),
+
+      // https://element-plus.org/
+      ElementPlus({
+        useSource: true,
+        defaultLocale: 'zh-cn',
       }),
 
       // https://unocss.dev/
@@ -59,6 +69,13 @@ export default ({ mode }: ConfigEnv): UserConfigExport => {
       // https://devtools-next.vuejs.org/
       VueDevTools(),
     ],
+    css: {
+      preprocessorOptions: {
+        scss: {
+          additionalData: `@use "~/styles/element/index.scss" as *;`,
+        },
+      },
+    },
     build: {
       rollupOptions: {
         output: {

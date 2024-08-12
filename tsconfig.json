@@ -18,7 +18,8 @@
     "resolveJsonModule": true,
     "types": [
       "node",
-      "vite/client"
+      "vite/client",
+      "element-plus/global"
     ],
     /** TS 严格模式 */
     "strict": true,
@@ -30,15 +31,7 @@
     "isolatedModules": true,
     "skipLibCheck": true
   },
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.d.ts",
-    "src/**/*.tsx",
-    "src/**/*.vue",
-    "tests/**/*.ts",
-    "types/**/*.d.ts",
-    "vite.config.ts"
-  ],
+  "include": ["src", "types/**/*.d.ts", "mock/**/*.ts"],
   /** 编译器默认排除的编译文件 */
   "exclude": ["node_modules", "dist"]
 }
