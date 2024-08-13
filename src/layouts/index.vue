@@ -1,8 +1,12 @@
 <script setup lang="ts">
 import AppHeader from './components/Header/index.vue'
+import AppMenu from './components/Menu/index.vue'
+import { useAppStore } from '@/stores/modules/app'
 
-const isCollapse = computed(() => false)
-const title = 'NGLab UI'
+const appStore = useAppStore()
+
+const title = import.meta.env.VITE_APP_NAME
+const isCollapse = computed(() => appStore.collapsed)
 </script>
 
 <template>
@@ -15,7 +19,7 @@ const title = 'NGLab UI'
           <span v-show="!isCollapse" class="ml-2 ws-nowrap text-2xl font-bold">{{ title }}</span>
         </div>
         <el-scrollbar class="app-aside-scrollbar">
-          xxx
+          <AppMenu />
         </el-scrollbar>
       </div>
     </el-aside>
