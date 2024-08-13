@@ -2,7 +2,7 @@
 </script>
 
 <template>
-  <div class="h-full flex justify-between border-b border-[var(--el-border-color)] bg-[var(--el-bg-color)]">
+  <el-header class="h-[var(--header-height)] border-b border-[var(--el-border-color)]">
     xxx
-  </div>
+  </el-header>
 </template>

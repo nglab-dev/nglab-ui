@@ -42,7 +42,6 @@ export default ({ mode }: ConfigEnv): UserConfigExport => {
         vueTemplate: true,
         dirs: [
           'src/composables',
-          'src/stores',
         ],
         resolvers: [
           ElementPlusResolver(),
@@ -60,7 +59,6 @@ export default ({ mode }: ConfigEnv): UserConfigExport => {
       // https://element-plus.org/
       ElementPlus({
         useSource: true,
-        defaultLocale: 'zh-cn',
       }),
 
       // https://unocss.dev/
@@ -69,23 +67,6 @@ export default ({ mode }: ConfigEnv): UserConfigExport => {
       // https://devtools-next.vuejs.org/
       VueDevTools(),
     ],
-    css: {
-      preprocessorOptions: {
-        scss: {
-          additionalData: `@use "~/styles/element/index.scss" as *;`,
-        },
-      },
-    },
-    build: {
-      rollupOptions: {
-        output: {
-          manualChunks: {
-            primevue: ['primevue/config', '@primevue/themes'],
-            vue: ['vue', 'vue-router', 'pinia', '@vueuse/core', 'vue-i18n'],
-          },
-        },
-      },
-    },
     define: {
       __BUILD_TIME__: JSON.stringify(dayjs().format('YYYY/MM/DD HH:mm')),
     },
