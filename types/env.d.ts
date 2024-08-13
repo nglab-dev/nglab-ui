@@ -5,13 +5,11 @@ declare module '*.vue' {
   export default Component
 }
 
-declare global {
-  interface ImportMeta {
-    readonly env: ImportMetaEnv
-  }
+interface ImportMeta {
+  readonly env: ImportMetaEnv
 }
 
-declare interface ImportMetaEnv {
+interface ImportMetaEnv {
   readonly VITE_PUBLIC_PATH: string
   readonly VITE_BASE_URL: string
 }

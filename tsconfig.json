@@ -23,6 +23,8 @@
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
     "skipLibCheck": true
+
   },
+  "include": ["src/**/*", "types/**/*", "vite.config.ts"],
   "exclude": ["dist", "node_modules", "cypress"]
 }

@@ -1,80 +1,66 @@
 <script setup lang="ts">
+import AppHeader from './components/Header/index.vue'
+
 const isCollapse = computed(() => false)
 const title = 'NGLab UI'
 </script>
 
 <template>
-  <el-container>
-    <el-aside>
-      <div class="aside-wrapper" :style="{ width: isCollapse ? '65px' : '220px' }">
+  <el-container class="app-container">
+    <el-aside class="app-aside">
+      <div class="app-aside-wrapper" :style="{ width: isCollapse ? '65px' : '240px' }">
         <!-- logo -->
-        <div class="logo">
-          <img class="logo-img" src="@/assets/images/logo.svg" alt="logo">
-          <span v-show="!isCollapse" class="logo-title">{{ title }}</span>
+        <div class="app-logo">
+          <img class="w-28px object-contain" src="@/assets/images/logo.svg" alt="logo">
+          <span v-show="!isCollapse" class="ml-2 ws-nowrap text-2xl font-bold">{{ title }}</span>
         </div>
+        <el-scrollbar class="app-aside-scrollbar">
+          xxx
+        </el-scrollbar>
       </div>
     </el-aside>
 
     <el-container>
-      <el-header>
-        header
-        <!-- <ToolBarLeft />
-        <ToolBarRight /> -->
+      <el-header class="app-header">
+        <AppHeader />
       </el-header>
       <!-- <Main /> -->
-      main
     </el-container>
   </el-container>
 </template>
 
-<style lang="scss" scoped>
-.el-container {
+<style scoped>
+.app-container {
   width: 100%;
   height: 100%;
-  :deep(.el-aside) {
-    width: auto;
-    border-right: 1px solid var(--el-border-color);
-
-    .aside-wrapper {
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-      transition: width 0.3s ease;
-
-      .logo {
-        box-sizing: border-box;
-        height: var(--header-height);
-        border-bottom: 1px solid var(--el-border-color);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        .logo-img {
-          width: 28px;
-          object-fit: contain;
-        }
-
-        .logo-title {
-          margin-left: 6px;
-          font-size: 21.5px;
-          font-weight: bold;
-          white-space: nowrap;
-        }
-      }
-
-      .el-scrollbar {
-        height: calc(100% - var(--header-height));
-        .el-menu {
-          width: 100%;
-          overflow-x: hidden;
-          border-right: none;
-        }
-      }
-    }
-  }
 }
 
-.el-header {
+.app-aside {
+  width: auto;
+  border-right: 1px solid var(--el-border-color);
+}
+
+.app-aside-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  transition: width 0.3s ease;
+}
+
+.app-logo {
+  box-sizing: border-box;
+  height: var(--header-height);
+  border-bottom: 1px solid var(--el-border-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.app-aside-scrollbar {
+  height: calc(100% - var(--header-height));
+}
+
+.app-header {
   box-sizing: border-box;
   display: flex;
   align-items: center;
