@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import AppHeader from './components/Header/index.vue'
 import AppMenu from './components/Menu/index.vue'
-import { useAppStore } from '@/stores/modules/app'
+import { useAppStore } from '@/stores/app'
 
 const appStore = useAppStore()
 
 const title = import.meta.env.VITE_APP_NAME
-const isCollapse = computed(() => appStore.collapsed)
+const isCollapse = computed(() => appStore.isCollapsed)
 </script>
 
 <template>

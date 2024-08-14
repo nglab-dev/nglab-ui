@@ -51,6 +51,6 @@
     "postcss"
   ],
   "i18n-ally.localesPaths": [
-    "src/locales/languages"
+    "locales"
   ]
 }

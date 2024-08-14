@@ -9,6 +9,9 @@ import VueDevTools from 'vite-plugin-vue-devtools'
 import dayjs from 'dayjs'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import ElementPlus from 'unplugin-element-plus/vite'
+import Icons from 'unplugin-icons/vite'
+import IconsResolver from 'unplugin-icons/resolver'
+import VueI18n from '@intlify/unplugin-vue-i18n/vite'
 
 // https://vitejs.dev/config/
 export default ({ mode }: ConfigEnv): UserConfigExport => {
@@ -46,6 +49,12 @@ export default ({ mode }: ConfigEnv): UserConfigExport => {
         ],
         resolvers: [
           ElementPlusResolver(),
+
+          // Auto import icon components
+          // 自动导入图标组件
+          IconsResolver({
+            prefix: 'Icon',
+          }),
         ],
       }),
 
@@ -53,6 +62,13 @@ export default ({ mode }: ConfigEnv): UserConfigExport => {
       Components({
         dts: 'types/components.d.ts',
         resolvers: [
+          // Auto register icon components
+          // 自动注册图标组件
+          IconsResolver({
+            enabledCollections: ['mdi'],
+          }),
+          // Auto register Element Plus components
+          // 自动导入 Element Plus 组件
           ElementPlusResolver(),
         ],
       }),
@@ -62,8 +78,20 @@ export default ({ mode }: ConfigEnv): UserConfigExport => {
         useSource: true,
       }),
 
+      Icons({
+        autoInstall: true,
+      }),
+
       // https://unocss.dev/
       UnoCSS(),
+
+      // https://github.com/intlify/bundle-tools/tree/main/packages/unplugin-vue-i18n
+      VueI18n({
+        runtimeOnly: true,
+        compositionOnly: true,
+        fullInstall: true,
+        include: [path.resolve(__dirname, 'locales/**')],
+      }),
 
       // https://devtools-next.vuejs.org/
       VueDevTools(),
