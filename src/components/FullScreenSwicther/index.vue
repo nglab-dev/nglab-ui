@@ -1,4 +1,4 @@
-<script setup lang="ts" name="FullScreen">
+<script setup lang="ts" name="FullScreenSwitcher">
 const { isFullscreen, toggle } = useFullscreen()
 </script>
 

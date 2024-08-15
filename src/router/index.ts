@@ -1,60 +1,66 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import type { RouteRecordRaw } from 'vue-router'
+import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router'
 import NProgress from 'nprogress'
-import AppLayout from '@/layouts/index.vue'
 import 'nprogress/nprogress.css'
+import { mapModuleRouterList } from './utils'
 
 NProgress.configure({ showSpinner: false })
 
-// const WHITE_LIST = [
-//   { name: 'login', children: [] },
-// ]
+// 导入homepage相关固定路由
+const homepageModules = import.meta.glob('./modules/**/homepage.ts', { eager: true })
+
+// 导入modules非homepage相关固定路由
+const fixedModules = import.meta.glob('./modules/**/!(homepage).ts', { eager: true })
+
+// 其他固定路由
+const defaultRouterList: Array<RouteRecordRaw> = [
+  {
+    path: '/login',
+    name: 'login',
+    component: () => import('@/views/login/index.vue'),
+  },
+  {
+    path: '/',
+    redirect: '/home',
+  },
+]
+
+// 存放固定路由
+export const homepageRouterList: Array<RouteRecordRaw> = mapModuleRouterList(homepageModules)
+export const fixedRouterList: Array<RouteRecordRaw> = mapModuleRouterList(fixedModules)
+
+export const routes = [...homepageRouterList, ...fixedRouterList, ...defaultRouterList]
 
 const router = createRouter({
-  history: createWebHistory(),
-  routes: [
-    {
-      path: '/',
-      component: AppLayout,
-      children: [
-        {
-          path: '/',
-          name: 'dashboard',
-          component: () => import('@/views/dashboard/index.vue'),
-        },
-      ],
-    },
-    {
-      path: '/login',
-      name: 'login',
-      component: () => import('@/views/login/index.vue'),
-    },
-    // 404
-    {
-      path: '/:pathMatch(.*)*',
-      name: 'notFound',
-      component: () => import('@/views/error/404.vue'),
-    },
-  ],
+  history:
+    import.meta.env.VITE_ROUTE_MODE === 'hash'
+      ? createWebHashHistory(import.meta.env.VITE_PUBLIC_PATH)
+      : createWebHistory(import.meta.env.VITE_PUBLIC_PATH),
+  // 应该添加到路由的初始路由列表。
+  routes,
+  scrollBehavior() {
+    return {
+      el: '#app',
+      top: 0,
+      behavior: 'smooth',
+    }
+  },
+  // 是否应该禁止尾部斜杠。
+  strict: false,
 })
 
-// router.beforeEach(async (to, from, next) => {
-//   NProgress.start()
+// router guard
+router.beforeEach(async (to, from, next) => {
+  next()
+})
 
-//   if (!userToken.value) {
-//     if (WHITE_LIST.some(el => el.name === to.name))
-//       return next()
-//     return next('/login')
-//   }
+router.afterEach(() => {
+  NProgress.done()
+})
 
-//   if (to.path === '/login') {
-//     return next({ path: '/' })
-//   }
-
-//   return next()
-// })
-
-// router.afterEach(() => {
-//   NProgress.done()
-// })
+router.onError((error) => {
+  NProgress.done()
+  console.warn('路由错误', error.message)
+})
 
 export default router

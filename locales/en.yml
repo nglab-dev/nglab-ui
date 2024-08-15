@@ -1,1 +1,9 @@
-name: English
+common:
+  login: Login
+  logout: Logout
+  register: Register
+  email: Email
+  username: Username
+  password: Password
+  confirm_password: Confirm Password
+  submit: Login

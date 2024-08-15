@@ -1,50 +1,31 @@
-<script setup>
+<script setup lang="ts" mame="Login">
+import LoginForm from './components/LoginForm.vue'
+import Footer from '@/layouts/components/Footer/index.vue'
 
+const appName = import.meta.env.VITE_APP_NAME
 </script>
 
 <template>
-  <div class="relative mx-auto hidden h-full w-full flex-col items-center justify-center container md:grid lg:grid-cols-2 lg:max-w-none lg:px-0">
-    <div class="absolute right-4 top-4 md:right-8 md:top-8">
-      <AppLocalePicker />
-    </div>
-
-    <div class="bg-muted relative hidden h-full flex-col p-10 text-white lg:flex dark:(border-r border-[#27272a])">
-      <div class="absolute inset-0 bg-zinc-900" />
-      <div class="relative z-20 flex items-center text-lg font-medium">
-        <AppLogo />
-        Nglab
-      </div>
-
-      <div class="relative z-20 mt-auto">
-        <blockquote class="space-y-2">
-          <p class="text-lg">
-            “Nglab is the next generation laboratory information system.”
-          </p>
-          <footer class="text-sm">
-            xc.chen
-          </footer>
-        </blockquote>
+  <div class="h-full flex">
+    <div class="fixed left-8 top-8 z-1 inline-flex items-center">
+      <img class="w-8" alt="logo" src="../../assets/images/logo.svg">
+      <div class="m-2 text-2xl color-white font-500">
+        {{ appName }}
       </div>
     </div>
-    <div class="lg:p-8">
-      <div class="mx-auto w-full flex flex-col justify-center sm:w-[420px] space-y-6">
-        <div class="flex flex-col text-center space-y-2">
-          <h1 class="text-3xl font-semibold tracking-tight">
-            Login an account
-          </h1>
-          <p class="text-muted-foreground text-sm">
-            Enter your email below to login your account
-          </p>
-        </div>
+    <div class="w-520px flex flex-col justify-end bg-zinc-900 max-lg:hidden">
+      <div relative mb-10 ml-10 w-450px text-left text-xl color-white font-500>
+        The Next Generation Lab Information Management System
+      </div>
+    </div>
 
-        <div class="grid gap-6">
-          xxx
-        </div>
+    <div relative flex flex-1 items-center justify-center pb-40px>
+      <div class="w-320px">
+        <LoginForm />
+      </div>
+      <div w="100%" absolute bottom-0 right-0>
+        <Footer />
       </div>
     </div>
   </div>
 </template>
-
-<style lang="scss">
-
-</style>

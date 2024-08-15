@@ -3,6 +3,6 @@
 
 <template>
   <el-button type="primary">
-    Hello World
+    home
   </el-button>
 </template>

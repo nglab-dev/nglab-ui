@@ -12,10 +12,12 @@
   },
   "dependencies": {
     "@vueuse/core": "^10.11.0",
+    "axios": "^1.7.4",
     "element-plus": "^2.8.0",
     "nprogress": "^0.2.0",
     "pinia": "^2.1.7",
     "pinia-plugin-persistedstate": "^3.2.1",
+    "qs": "^6.13.0",
     "vue": "^3.4.29",
     "vue-i18n": "^9.13.1",
     "vue-router": "^4.4.0"
@@ -26,6 +28,7 @@
     "@intlify/unplugin-vue-i18n": "^4.0.0",
     "@types/node": "^20.14.9",
     "@types/nprogress": "^0.2.3",
+    "@types/qs": "^6.9.15",
     "@unocss/eslint-config": "^0.61.0",
     "@vitejs/plugin-vue": "^5.0.5",
     "dayjs": "^1.11.11",
