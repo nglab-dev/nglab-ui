@@ -1,6 +1,6 @@
 <script setup lang="ts" name="LocalePicker">
 import { storeToRefs } from 'pinia'
-import { useAppStore } from '@/stores/app'
+import { useAppStore } from '@/store/modules/app'
 import { availableLocales, loadLanguageAsync } from '@/plugins/i18n'
 
 const appStore = useAppStore()
@@ -16,9 +16,9 @@ async function changeLanguage(value: string) {
 
 <template>
   <el-dropdown trigger="click" @command="changeLanguage">
-    <button class="icon-btn" type="button" aria-label="dark">
-      <div class="i-mdi-translate" />
-    </button>
+    <el-button circle text>
+      <div class="i-lucide-languages" />
+    </el-button>
     <template #dropdown>
       <el-dropdown-menu>
         <el-dropdown-item

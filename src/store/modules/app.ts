@@ -1,24 +1,28 @@
 import { defineStore } from 'pinia'
 
+export type LayoutType = 'vertical'
+
 export interface AppState {
   isCollapsed: boolean
-  colorMode: string
   language: string
+  watermark: boolean
+  layout: LayoutType
 }
 
 export const useAppStore = defineStore(
-  'app',
+  'store-app',
   {
     state: (): AppState => ({
       isCollapsed: false,
       language: 'en',
-      colorMode: 'auto', // auto, dark, light
+      watermark: false,
+      layout: 'vertical',
     }),
     actions: {
 
     },
     persist: {
-      key: 'app',
+      key: 'store-app',
     },
   },
 )

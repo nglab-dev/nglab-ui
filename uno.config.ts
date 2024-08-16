@@ -19,7 +19,7 @@ export default defineConfig({
     presetAttributify(),
     presetTypography(),
     presetIcons({
-      scale: 1.2,
+      scale: 1.5,
       warn: true,
     }),
   ],

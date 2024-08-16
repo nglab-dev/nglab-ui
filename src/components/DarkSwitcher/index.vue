@@ -2,7 +2,7 @@
 </script>
 
 <template>
-  <button type="button" aria-label="dark" class="icon-btn" @click="toggleDark">
-    <div class="i-mdi-weather-night dark:i-mdi-weather-sunny" />
-  </button>
+  <el-button circle text @click="toggleDark">
+    <div class="i-lucide-moon dark:i-lucide-sun" />
+  </el-button>
 </template>

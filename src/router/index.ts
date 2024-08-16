@@ -1,10 +1,7 @@
 import type { RouteRecordRaw } from 'vue-router'
 import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router'
-import NProgress from 'nprogress'
-import 'nprogress/nprogress.css'
 import { mapModuleRouterList } from './utils'
-
-NProgress.configure({ showSpinner: false })
+import { createRouterGuard } from './guard'
 
 // 导入homepage相关固定路由
 const homepageModules = import.meta.glob('./modules/**/homepage.ts', { eager: true })
@@ -21,15 +18,15 @@ const defaultRouterList: Array<RouteRecordRaw> = [
   },
   {
     path: '/',
-    redirect: '/home',
+    redirect: '/home/index',
   },
 ]
 
 // 存放固定路由
-export const homepageRouterList: Array<RouteRecordRaw> = mapModuleRouterList(homepageModules)
-export const fixedRouterList: Array<RouteRecordRaw> = mapModuleRouterList(fixedModules)
+export const homepageRoutes: Array<RouteRecordRaw> = mapModuleRouterList(homepageModules)
+export const fixedRoutes: Array<RouteRecordRaw> = mapModuleRouterList(fixedModules)
 
-export const routes = [...homepageRouterList, ...fixedRouterList, ...defaultRouterList]
+export const routes = [...homepageRoutes, ...fixedRoutes, ...defaultRouterList]
 
 const router = createRouter({
   history:
@@ -50,17 +47,6 @@ const router = createRouter({
 })
 
 // router guard
-router.beforeEach(async (to, from, next) => {
-  next()
-})
-
-router.afterEach(() => {
-  NProgress.done()
-})
-
-router.onError((error) => {
-  NProgress.done()
-  console.warn('路由错误', error.message)
-})
+createRouterGuard(router)
 
 export default router

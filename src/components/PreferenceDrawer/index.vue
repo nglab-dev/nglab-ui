@@ -1,7 +1,11 @@
-<script setup lang="ts">
-
+<script setup lang="ts" name="PreferenceDrawer">
+function openPreferenceDrawer() {
+  // TODO: implement preference drawer
+}
 </script>
 
 <template>
-  PreferenceDrawer TODO
+  <el-button circle text @click="openPreferenceDrawer">
+    <div class="i-lucide-settings" />
+  </el-button>
 </template>

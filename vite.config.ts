@@ -12,6 +12,7 @@ import ElementPlus from 'unplugin-element-plus/vite'
 import Icons from 'unplugin-icons/vite'
 import IconsResolver from 'unplugin-icons/resolver'
 import VueI18n from '@intlify/unplugin-vue-i18n/vite'
+import { viteMockServe } from 'vite-plugin-mock'
 
 // https://vitejs.dev/config/
 export default ({ mode }: ConfigEnv): UserConfigExport => {
@@ -65,7 +66,7 @@ export default ({ mode }: ConfigEnv): UserConfigExport => {
           // Auto register icon components
           // 自动注册图标组件
           IconsResolver({
-            enabledCollections: ['mdi'],
+            enabledCollections: ['ep', 'mdi', 'lucide'],
           }),
           // Auto register Element Plus components
           // 自动导入 Element Plus 组件
@@ -91,6 +92,12 @@ export default ({ mode }: ConfigEnv): UserConfigExport => {
         compositionOnly: true,
         fullInstall: true,
         include: [path.resolve(__dirname, 'locales/**')],
+      }),
+      // https://github.com/vbenjs/vite-plugin-mock
+      viteMockServe({
+        mockPath: 'mock',
+        enable: true,
+        logger: true,
       }),
 
       // https://devtools-next.vuejs.org/

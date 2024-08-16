@@ -1,6 +1,12 @@
 <script setup lang="ts" name="LoginForm">
 import type { FormInstance } from 'element-plus'
+import { ElMessage } from 'element-plus'
 import type { LoginRequest } from '@/api/auth'
+import { useUserStore } from '@/store/modules/user'
+
+const router = useRouter()
+const route = useRoute()
+const userStore = useUserStore()
 
 const loginFormRef = ref<FormInstance>()
 const loginRules = reactive({
@@ -9,8 +15,8 @@ const loginRules = reactive({
 })
 const loading = ref(false)
 const loginForm = reactive<LoginRequest>({
-  username: '',
-  password: '',
+  username: 'admin',
+  password: '123456',
 })
 
 const loginConfig = useStorage('login-config', {
@@ -20,12 +26,17 @@ const loginConfig = useStorage('login-config', {
 async function login(formEl: FormInstance | undefined) {
   if (!formEl)
     return
-  await formEl.validate((valid, fields) => {
+  await formEl.validate(async (valid, fields) => {
     if (valid) {
-      // console.log('submit!')
+      await userStore.login(loginForm)
+      ElMessage.success('登录成功')
+      const redirect = route.query.redirect as string
+      const redirectUrl = redirect ? decodeURIComponent(redirect) : '/home'
+      router.push(redirectUrl)
     }
     else {
-      // console.log('error submit!', fields)
+      console.error('error submit!', fields)
+      ElMessage.error('请检查输入项')
     }
   })
 }
@@ -36,18 +47,14 @@ async function login(formEl: FormInstance | undefined) {
     <el-form-item prop="username">
       <el-input v-model="loginForm.username" placeholder="用户名：admin / user">
         <template #prefix>
-          <el-icon class="el-input__icon">
-            <user />
-          </el-icon>
+          <i-ep-user />
         </template>
       </el-input>
     </el-form-item>
     <el-form-item prop="password">
       <el-input v-model="loginForm.password" type="password" placeholder="密码：123456" show-password autocomplete="new-password">
         <template #prefix>
-          <el-icon class="el-input__icon">
-            <lock />
-          </el-icon>
+          <i-ep-lock />
         </template>
       </el-input>
     </el-form-item>

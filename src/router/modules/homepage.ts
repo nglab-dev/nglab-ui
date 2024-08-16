@@ -4,14 +4,14 @@ const Layout = () => import('@/layouts/index.vue')
 
 const routes: RouteRecordRaw[] = [
   {
+    name: 'HomeLayout',
+    path: '/',
     component: Layout,
     meta: {
       icon: 'lucide:layout-dashboard',
       order: -1,
       title: 'Home',
     },
-    name: 'HomeLayout',
-    path: '/',
     children: [
       {
         name: 'Home',

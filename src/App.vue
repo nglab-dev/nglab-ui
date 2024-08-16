@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
 import { loadLanguageAsync } from './plugins/i18n'
-import { useAppStore } from './stores/app'
+import { useAppStore } from './store/modules/app'
 
 const appStore = useAppStore()
 

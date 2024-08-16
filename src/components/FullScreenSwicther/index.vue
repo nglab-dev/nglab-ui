@@ -3,7 +3,7 @@ const { isFullscreen, toggle } = useFullscreen()
 </script>
 
 <template>
-  <button type="button" aria-label="dark" class="icon-btn" @click="toggle()">
-    <div :class="`${isFullscreen ? 'i-mdi-fullscreen-exit' : 'i-mdi-fullscreen'}`" class="text-2xl" />
-  </button>
+  <el-button circle text @click="toggle()">
+    <div :class="`${isFullscreen ? 'i-lucide-minimize' : 'i-lucide-maximize'}`" />
+  </el-button>
 </template>
