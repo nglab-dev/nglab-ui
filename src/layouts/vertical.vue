@@ -1,13 +1,16 @@
 <script setup lang="ts" name="LayoutVertical">
 import AppHeader from './components/Header/index.vue'
-import AppMenu from './components/Menu/index.vue'
 import AppMain from './components/Main/index.vue'
+import MenuItem from './components/MenuItem/index.vue'
 import { useAppStore } from '@/store/modules/app'
 
+const route = useRoute()
 const appStore = useAppStore()
 
 const title = import.meta.env.VITE_APP_NAME
 const isCollapse = computed(() => appStore.isCollapsed)
+
+const activeMenu = computed(() => (route.meta.activeMenu ? route.meta.activeMenu : route.path) as string)
 </script>
 
 <template>
@@ -20,7 +23,14 @@ const isCollapse = computed(() => appStore.isCollapsed)
           <span v-show="!isCollapse" class="ml-2 ws-nowrap text-2xl font-bold">{{ title }}</span>
         </div>
         <el-scrollbar class="app-aside-scrollbar">
-          <AppMenu />
+          <el-menu
+            :router="false"
+            :default-active="activeMenu"
+            :collapse="isCollapse"
+            :collapse-transition="false"
+          >
+            <MenuItem />
+          </el-menu>
         </el-scrollbar>
       </div>
     </el-aside>

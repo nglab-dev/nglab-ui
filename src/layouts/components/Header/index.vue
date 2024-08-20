@@ -26,7 +26,7 @@ const { t } = useI18n()
     <!-- dark mode switcher -->
     <dark-switcher />
     <!-- preference drawer -->
-    <preference-drawer />
+    <!-- <preference-drawer /> -->
     <!-- user avatar -->
     <el-dropdown trigger="click">
       <el-avatar

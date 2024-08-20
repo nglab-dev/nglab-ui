@@ -2,11 +2,14 @@ import { defineStore } from 'pinia'
 
 export type LayoutType = 'vertical'
 
+export type MenuLoadType = 'static' | 'dynamic'
+
 export interface AppState {
   isCollapsed: boolean
   language: string
   watermark: boolean
   layout: LayoutType
+  menuLoadType: MenuLoadType
 }
 
 export const useAppStore = defineStore(
@@ -17,6 +20,7 @@ export const useAppStore = defineStore(
       language: 'en',
       watermark: false,
       layout: 'vertical',
+      menuLoadType: 'static',
     }),
     actions: {
 

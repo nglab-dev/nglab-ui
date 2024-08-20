@@ -5,7 +5,7 @@ const Layout = () => import('@/layouts/index.vue')
 const routes: RouteRecordRaw[] = [
   {
     name: 'HomeLayout',
-    path: '/',
+    path: '/home',
     component: Layout,
     meta: {
       icon: 'lucide:layout-dashboard',
@@ -15,7 +15,7 @@ const routes: RouteRecordRaw[] = [
     children: [
       {
         name: 'Home',
-        path: '/home',
+        path: 'index',
         component: () => import('@/views/home/index.vue'),
         meta: {
           affixTab: true,

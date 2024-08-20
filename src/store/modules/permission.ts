@@ -1,54 +1,40 @@
-import type { RouteRecordRaw } from 'vue-router'
 import { defineStore } from 'pinia'
-import router, { fixedRoutes, homepageRoutes } from '@/router'
-import type { RouteItem } from '@/api/auth'
+import type { RouteRecordRaw } from 'vue-router'
+import store, { useAppStore, useUserStore } from '@/store'
+import { staticRoutes } from '@/router'
 import { getUserMenu } from '@/api/auth'
-import { transformObjectToRoute } from '@/router/utils'
-import store from '@/store'
 
 export interface PermissionState {
-  whiteRoutePaths: string[]
   routes: RouteRecordRaw[]
-  asyncRoutes: RouteRecordRaw[]
+  // menus:
 }
 
 export const usePermissionStore = defineStore('store-permission', {
   state: (): PermissionState => ({
-    whiteRoutePaths: ['/login'],
     routes: [],
-    asyncRoutes: [],
   }),
   actions: {
-    async initRoutes() {
-      const accessedRoutes = this.asyncRoutes
-
-      // 在菜单展示全部路由
-      this.routes = [...homepageRoutes, ...accessedRoutes, ...fixedRoutes]
-      // 在菜单只展示动态路由和首页
-      // this.routers = [...homepageRouterList, ...accessedRouters];
-      // 在菜单只展示动态路由
-      // this.routers = [...accessedRouters];
-    },
-    async buildAsyncRoutes() {
-      try {
-        // 发起菜单权限请求 获取菜单列表
-        const menus = await getUserMenu()
-        this.asyncRoutes = transformObjectToRoute(menus)
-        await this.initRoutes()
-        return this.asyncRoutes
+    async generateRoutes() {
+      const appStore = useAppStore()
+      const userStore = useUserStore()
+      if (appStore.menuLoadType === 'static') {
+        this.routes = staticRoutes
       }
-      catch (error) {
-        throw new Error('Can\'t build routes')
-      }
-    },
-    async restoreRoutes() {
-      // 不需要在此额外调用initRoutes更新侧边导肮内容，在登录后asyncRoutes为空会调用
-      this.asyncRoutes.forEach((item: RouteRecordRaw) => {
-        if (item.name) {
-          router.removeRoute(item.name)
+      else {
+        if (!userStore.token) {
+          userStore.logout()
+          return
         }
-      })
-      this.asyncRoutes = []
+        try {
+          this.routes = await getUserMenu()
+        }
+        catch (error) {
+          console.error('Failed to get user menu')
+        }
+      }
+      if (this.routes.length === 0) {
+        throw new Error('Failed to get routes')
+      }
     },
   },
 })

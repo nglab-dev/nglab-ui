@@ -1,3 +1,4 @@
+import type { RouteRecordRaw } from 'vue-router'
 import { request } from '@/utils/request'
 
 export interface LoginRequest {
@@ -9,27 +10,8 @@ export interface LoginResult {
   token: string
 }
 
-export interface UserMenuResult {
-  list: Array<RouteItem>
-}
-
-export type Component<T = any> =
-  | ReturnType<typeof defineComponent>
-  | (() => Promise<typeof import('*.vue')>)
-  | (() => Promise<T>)
-
-export interface RouteItem {
-  path: string
-  name: string
-  component?: Component | string
-  components?: Component
-  redirect?: string
-  meta: RouteRecordMeta
-  children?: Array<RouteItem>
-}
-
 export interface AuthUserInfoResult {
-  userId: number
+  id: number
   username: string
   nickname: string
   avatar: string
@@ -53,7 +35,7 @@ export function login(data: LoginRequest) {
 
 // get auth user menu
 export function getUserMenu() {
-  return request.get<RouteItem[]>({
+  return request.get<RouteRecordRaw[]>({
     url: '/menu',
   })
 }

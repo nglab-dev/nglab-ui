@@ -1,55 +1,35 @@
 import { defineStore } from 'pinia'
 import { ElMessage } from 'element-plus'
-import { usePermissionStore } from './permission'
 import store from '@/store'
-import { type LoginRequest, getAuthUser, login } from '@/api/auth'
+import type { AuthUserInfoResult, LoginRequest } from '@/api/auth'
+import { getAuthUser, login } from '@/api/auth'
 
 export interface UserState {
-  /**
-   * 用户id
-   */
-  id: number
   /**
    * 用户token
    */
   token: string
-  /**
-   * 用户名
-   */
-  username: string
-  /**
-   * 昵称
-   */
-  nickname: string
-  /**
-   * 头像
-   */
-  avatar?: string
-  /**
-   * 角色
-   */
-  roles: string[]
+
+  userInfo: AuthUserInfoResult | null
 }
 
 export const useUserStore = defineStore(
   'store-user',
   {
     state: (): UserState => ({
-      id: 0,
       token: '',
-      username: '',
-      nickname: '',
-      avatar: '',
-      roles: [],
+      userInfo: null,
     }),
-    actions: {
-      setUserInfo(partial: Partial<UserState>) {
-        this.$patch(partial)
+    getters: {
+      isLogin(): boolean {
+        return !!this.token
       },
+    },
+    actions: {
       async login(params: LoginRequest) {
         try {
           const { token } = await login(params)
-          this.setUserInfo({ token })
+          this.token = token
           this.getUserInfo()
         }
         catch (error: Error | any) {
@@ -58,17 +38,13 @@ export const useUserStore = defineStore(
       },
       async getUserInfo() {
         const res = await getAuthUser()
-        this.setUserInfo(res)
+        this.userInfo = res
       },
-      async logout() {
+      logout() {
         this.$reset()
       },
     },
     persist: {
-      afterRestore: () => {
-        const permissionStore = usePermissionStore()
-        permissionStore.initRoutes()
-      },
       key: 'store-user',
       paths: ['token'],
     },

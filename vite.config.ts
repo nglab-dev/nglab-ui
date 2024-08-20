@@ -13,6 +13,7 @@ import Icons from 'unplugin-icons/vite'
 import IconsResolver from 'unplugin-icons/resolver'
 import VueI18n from '@intlify/unplugin-vue-i18n/vite'
 import { viteMockServe } from 'vite-plugin-mock'
+import { PrimeVueResolver } from '@primevue/auto-import-resolver'
 
 // https://vitejs.dev/config/
 export default ({ mode }: ConfigEnv): UserConfigExport => {
@@ -71,6 +72,8 @@ export default ({ mode }: ConfigEnv): UserConfigExport => {
           // Auto register Element Plus components
           // 自动导入 Element Plus 组件
           ElementPlusResolver(),
+
+          PrimeVueResolver(),
         ],
       }),
 
