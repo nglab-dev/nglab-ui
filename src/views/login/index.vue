@@ -1,6 +1,6 @@
 <script setup lang="ts" mame="Login">
 import LoginForm from './components/LoginForm.vue'
-import Footer from '@/layouts/components/Footer/index.vue'
+import Footer from '@/layouts/components/Footer.vue'
 
 const appName = import.meta.env.VITE_APP_NAME
 </script>

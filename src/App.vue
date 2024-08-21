@@ -7,6 +7,8 @@ const appStore = useAppStore()
 
 const { language } = storeToRefs(appStore)
 
+usePageTitle()
+
 onMounted(() => {
   loadLanguageAsync(language.value)
 })

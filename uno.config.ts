@@ -18,10 +18,14 @@ export default defineConfig({
     presetUno(),
     presetAttributify(),
     presetTypography(),
-    presetIcons({
-      scale: 1.5,
-      warn: true,
-    }),
+    presetIcons(),
   ],
   transformers: [transformerDirectives(), transformerVariantGroup()],
+  safelist: [
+    'prose',
+    'prose-sm',
+    'm-auto',
+    'text-left',
+  ],
+
 })

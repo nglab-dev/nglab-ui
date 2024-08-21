@@ -9,7 +9,11 @@ declare module 'vue-router' {
     roles?: RoleType[]
     // hide
     hide?: boolean
+    // hideChildren
+    hideChildren?: boolean
     // sort
     sort?: number
+    // active
+    actived?: boolean
   }
 }

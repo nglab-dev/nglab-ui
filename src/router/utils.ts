@@ -10,5 +10,3 @@ export function formatModules(_modules: any, result: RouteRecordRaw[]) {
   })
   return result
 }
-
-// export function transformToMenus(routes: RouteRecordRaw[]):

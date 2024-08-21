@@ -1,8 +1,8 @@
 <script setup lang="ts" name="LayoutVertical">
-import AppHeader from './components/Header/index.vue'
-import AppMain from './components/Main/index.vue'
-import MenuItem from './components/MenuItem/index.vue'
-import { useAppStore } from '@/store/modules/app'
+import Header from './components/Header.vue'
+import MainPage from './components/MainPage.vue'
+import MenuItem from './components/MenuItem.vue'
+import { useAppStore } from '@/store'
 
 const route = useRoute()
 const appStore = useAppStore()
@@ -10,7 +10,9 @@ const appStore = useAppStore()
 const title = import.meta.env.VITE_APP_NAME
 const isCollapse = computed(() => appStore.isCollapsed)
 
-const activeMenu = computed(() => (route.meta.activeMenu ? route.meta.activeMenu : route.path) as string)
+const activedMenu = computed(() => (route.meta.actived ? route.meta.actived : route.name) as string)
+
+const { menuTree } = useMenuTree()
 </script>
 
 <template>
@@ -25,11 +27,11 @@ const activeMenu = computed(() => (route.meta.activeMenu ? route.meta.activeMenu
         <el-scrollbar class="app-aside-scrollbar">
           <el-menu
             :router="false"
-            :default-active="activeMenu"
+            :default-active="activedMenu"
             :collapse="isCollapse"
             :collapse-transition="false"
           >
-            <MenuItem />
+            <MenuItem :items="menuTree" />
           </el-menu>
         </el-scrollbar>
       </div>
@@ -37,10 +39,10 @@ const activeMenu = computed(() => (route.meta.activeMenu ? route.meta.activeMenu
 
     <el-container>
       <el-header class="app-header">
-        <AppHeader />
+        <Header />
       </el-header>
       <el-main>
-        <AppMain />
+        <MainPage />
       </el-main>
     </el-container>
   </el-container>

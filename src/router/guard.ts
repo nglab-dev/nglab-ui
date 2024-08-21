@@ -44,9 +44,7 @@ export function createRouterGuard(router: Router) {
     next()
   })
 
-  router.afterEach((to) => {
-    const title = useTitle()
-    title.value = `${to.meta.title} - ${title.value}`
+  router.afterEach(() => {
     NProgress.done()
   })
 }

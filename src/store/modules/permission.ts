@@ -6,7 +6,6 @@ import { getUserMenu } from '@/api/auth'
 
 export interface PermissionState {
   routes: RouteRecordRaw[]
-  // menus:
 }
 
 export const usePermissionStore = defineStore('store-permission', {
@@ -31,9 +30,6 @@ export const usePermissionStore = defineStore('store-permission', {
         catch (error) {
           console.error('Failed to get user menu')
         }
-      }
-      if (this.routes.length === 0) {
-        throw new Error('Failed to get routes')
       }
     },
   },

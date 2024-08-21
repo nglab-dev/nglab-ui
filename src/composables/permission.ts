@@ -1,7 +1,7 @@
 import { isArray, isString } from 'radash'
 import { useUserStore } from '@/store'
 
-export function usePermission() {
+export function useUserPermission() {
   const userStore = useUserStore()
 
   function hasPermission(permission: string[] | undefined) {
