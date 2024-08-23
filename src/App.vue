@@ -4,8 +4,10 @@ import { loadLanguageAsync } from './plugins/i18n'
 import { useAppStore } from './store/modules/app'
 
 const appStore = useAppStore()
-
 const { language } = storeToRefs(appStore)
+const { initTheme } = useTheme()
+
+initTheme()
 
 onMounted(() => {
   loadLanguageAsync(language.value)

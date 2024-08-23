@@ -9,14 +9,14 @@ import { staticRoutes } from '@/router/static'
 
 export interface PermissionState {
   menus: RouteRecordRaw[]
-  flatMenus: RouteRecordRaw[]
+  routes: RouteRecordRaw[]
   currentRouteName: string
 }
 
 export const usePermissionStore = defineStore('store-permission', {
   state: (): PermissionState => ({
     menus: [],
-    flatMenus: [],
+    routes: [],
     currentRouteName: '',
   }),
   getters: {
@@ -45,17 +45,18 @@ export const usePermissionStore = defineStore('store-permission', {
       }
 
       try {
+        // TODO: filter menus by user permission and meta
         if (appStore.menuMode === 'static') {
           this.menus = staticRoutes
-          this.flatMenus = this.menus
+          this.routes = this.menus
         }
         else {
           const { menus } = await getUserPermissions()
           this.menus = menus
-          this.flatMenus = flatRoutes(this.menus)
+          this.routes = flatRoutes(this.menus)
         }
 
-        this.flatMenus.forEach((item: RouteRecordRaw) => {
+        this.routes.forEach((item: RouteRecordRaw) => {
           item.children && delete item.children
           if (typeof item.component === 'string') {
             // @ts-expect-error ignore
@@ -76,7 +77,7 @@ export const usePermissionStore = defineStore('store-permission', {
       }
     },
     resetRoutes() {
-      this.flatMenus.forEach((route) => {
+      this.routes.forEach((route) => {
         const { name } = route
         if (name && router.hasRoute(name))
           router.removeRoute(name)

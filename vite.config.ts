@@ -9,8 +9,6 @@ import VueDevTools from 'vite-plugin-vue-devtools'
 import dayjs from 'dayjs'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import ElementPlus from 'unplugin-element-plus/vite'
-import Icons from 'unplugin-icons/vite'
-import IconsResolver from 'unplugin-icons/resolver'
 import VueI18n from '@intlify/unplugin-vue-i18n/vite'
 import { viteMockServe } from 'vite-plugin-mock'
 import Markdown from 'unplugin-vue-markdown/vite'
@@ -60,12 +58,6 @@ export default ({ mode }: ConfigEnv): UserConfigExport => {
         ],
         resolvers: [
           ElementPlusResolver(),
-
-          // Auto import icon components
-          // 自动导入图标组件
-          IconsResolver({
-            prefix: 'Icon',
-          }),
         ],
       }),
 
@@ -77,11 +69,6 @@ export default ({ mode }: ConfigEnv): UserConfigExport => {
         include: [/\.vue$/, /\.vue\?vue/, /\.md$/],
         dts: 'types/components.d.ts',
         resolvers: [
-          // Auto register icon components
-          // 自动注册图标组件
-          IconsResolver({
-            enabledCollections: ['lucide'],
-          }),
           // Auto register Element Plus components
           // 自动导入 Element Plus 组件
           ElementPlusResolver(),
@@ -91,10 +78,6 @@ export default ({ mode }: ConfigEnv): UserConfigExport => {
       // https://element-plus.org/
       ElementPlus({
         useSource: true,
-      }),
-
-      Icons({
-        autoInstall: true,
       }),
 
       // https://unocss.dev/

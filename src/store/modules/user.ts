@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import { ElMessage } from 'element-plus'
 import type { AuthUserInfoResult, LoginRequest } from '@/api/auth'
 import { getAuthUser, login, logout } from '@/api/auth'
+import router, { LOGIN_PATH } from '@/router'
 
 export interface UserState {
   /**
@@ -44,6 +45,7 @@ export const useUserStore = defineStore(
       async logout() {
         await logout()
         this.$reset()
+        router.replace(LOGIN_PATH)
       },
     },
     persist: {

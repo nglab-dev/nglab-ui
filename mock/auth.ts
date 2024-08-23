@@ -20,6 +20,14 @@ const authMock: MockMethod[] = [
     },
   },
   {
+    url: '/api/logout',
+    timeout: 200,
+    method: 'post',
+    response: () => {
+      return resultOk({})
+    },
+  },
+  {
     url: '/api/user',
     timeout: 200,
     method: 'get',

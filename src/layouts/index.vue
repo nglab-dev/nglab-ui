@@ -1,6 +1,7 @@
 <script setup lang="ts" name="LayoutIndex">
 import { storeToRefs } from 'pinia'
 import LayoutVertical from './vertical.vue'
+import PreferenceDrawer from './components/PreferenceDrawer.vue'
 import type { LayoutMode } from '@/store'
 import { useAppStore } from '@/store'
 
@@ -22,7 +23,7 @@ watch(isDark, () => (font.color = isDark.value ? 'rgba(255, 255, 255, .15)' : 'r
 <template>
   <el-watermark id="watermark" :font="font" :content="watermark ? [appName] : ''">
     <component :is="LayoutComponents[layoutMode]" />
-    <!-- <preference-drawer /> -->
+    <PreferenceDrawer />
   </el-watermark>
 </template>
 

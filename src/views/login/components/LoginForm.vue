@@ -1,12 +1,15 @@
 <script setup lang="ts" name="LoginForm">
 import type { FormInstance } from 'element-plus'
 import { ElMessage } from 'element-plus'
+import { Lock, User } from '@element-plus/icons-vue'
 import type { LoginRequest } from '@/api/auth'
 import { useUserStore } from '@/store/modules/user'
+import { usePermissionStore } from '@/store'
 
 const router = useRouter()
 const route = useRoute()
 const userStore = useUserStore()
+const permissStore = usePermissionStore()
 
 const loginFormRef = ref<FormInstance>()
 const loginRules = reactive({
@@ -29,6 +32,7 @@ async function login(formEl: FormInstance | undefined) {
   await formEl.validate(async (valid, fields) => {
     if (valid) {
       await userStore.login(loginForm)
+      await permissStore.buildRoutes()
       ElMessage.success('登录成功')
       const redirect = route.query.redirect as string
       const redirectUrl = redirect ? decodeURIComponent(redirect) : '/home'
@@ -47,14 +51,18 @@ async function login(formEl: FormInstance | undefined) {
     <el-form-item prop="username">
       <el-input v-model="loginForm.username" placeholder="用户名：admin / user">
         <template #prefix>
-          <i-ep-user />
+          <el-icon class="el-input__icon">
+            <User />
+          </el-icon>
         </template>
       </el-input>
     </el-form-item>
     <el-form-item prop="password">
       <el-input v-model="loginForm.password" type="password" placeholder="密码：123456" show-password autocomplete="new-password">
         <template #prefix>
-          <i-ep-lock />
+          <el-icon class="el-input__icon">
+            <Lock />
+          </el-icon>
         </template>
       </el-input>
     </el-form-item>

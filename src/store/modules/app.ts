@@ -14,6 +14,7 @@ export interface AppState {
   watermark: boolean
   layoutMode: LayoutMode
   menuMode: MenuMode
+  primaryColor: string
 }
 
 export const useAppStore = defineStore(
@@ -22,7 +23,7 @@ export const useAppStore = defineStore(
     state: (): AppState => ({
       collapsed: false,
       contentMaxmized: false,
-
+      primaryColor: '',
       language: 'en',
       watermark: false,
       layoutMode: 'vertical',

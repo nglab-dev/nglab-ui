@@ -36,3 +36,48 @@ function handleClickMenu(menu: RouteRecordRaw) {
     </el-menu-item>
   </template>
 </template>
+
+<style lang="scss" scoped>
+.el-sub-menu .el-sub-menu__title:hover {
+  color: var(--el-menu-hover-text-color);
+  background-color: transparent;
+}
+.el-menu--collapse {
+  .is-active {
+    .el-sub-menu__title {
+      color: #ffffff;
+      background-color: var(--el-color-primary);
+    }
+  }
+}
+
+.el-menu-item {
+  &:hover {
+    color: var(--el-menu-hover-text-color);
+  }
+  &.is-active {
+    color: var(--el-menu-active-color);
+    background-color: var(--el-menu-active-bg-color);
+  }
+}
+.vertical,
+.classic,
+.transverse {
+  .el-menu-item {
+    &.is-active {
+      &::before {
+        left: 0;
+      }
+    }
+  }
+}
+.columns {
+  .el-menu-item {
+    &.is-active {
+      &::before {
+        right: 0;
+      }
+    }
+  }
+}
+</style>
