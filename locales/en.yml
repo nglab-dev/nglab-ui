@@ -7,3 +7,15 @@ common:
   password: Password
   confirm_password: Confirm Password
   submit: Login
+
+menu:
+  home: Home
+  about: About
+
+tabs:
+  refresh: Refresh
+  close_current: Close Current
+  close_all: Close All
+  close_other: Close Other
+  close_left: Close Left
+  close_right: Close Right

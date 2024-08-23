@@ -7,3 +7,15 @@ common:
   email: 邮箱
   confirm_password: 确认密码
   submit: 登录
+
+menu:
+  home: 主页
+  about: 关于
+
+tabs:
+  refresh: 刷新
+  close_current: 关闭当前标签页
+  close_all: 关闭所有标签页
+  close_other: 关闭其他标签页
+  close_left: 关闭左侧标签页
+  close_right: 关闭右侧标签页

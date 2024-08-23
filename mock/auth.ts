@@ -35,11 +35,23 @@ const authMock: MockMethod[] = [
     },
   },
   {
-    url: '/api/menu',
+    url: '/api/permissions',
     timeout: 200,
     method: 'get',
     response: () => {
-      return resultOk([])
+      return resultOk({
+        menus: [
+          {
+            path: '/home',
+            name: 'home',
+            component: '/home/index',
+            meta: {
+              icon: 'House',
+              title: 'menu.home',
+            },
+          },
+        ],
+      })
     },
   },
 ]

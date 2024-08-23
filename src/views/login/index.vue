@@ -2,7 +2,7 @@
 import LoginForm from './components/LoginForm.vue'
 import Footer from '@/layouts/components/Footer.vue'
 
-const appName = import.meta.env.VITE_APP_NAME
+const appTitle = import.meta.env.VITE_APP_TITLE
 </script>
 
 <template>
@@ -10,7 +10,7 @@ const appName = import.meta.env.VITE_APP_NAME
     <div class="fixed left-8 top-8 z-1 inline-flex items-center">
       <img class="w-8" alt="logo" src="../../assets/images/logo.svg">
       <div class="m-2 text-2xl color-white font-500">
-        {{ appName }}
+        {{ appTitle }}
       </div>
     </div>
     <div class="w-520px flex flex-col justify-end bg-zinc-900 max-lg:hidden">

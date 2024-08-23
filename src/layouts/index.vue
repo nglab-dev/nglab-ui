@@ -1,15 +1,15 @@
 <script setup lang="ts" name="LayoutIndex">
 import { storeToRefs } from 'pinia'
 import LayoutVertical from './vertical.vue'
-import type { LayoutType } from '@/store'
+import type { LayoutMode } from '@/store'
 import { useAppStore } from '@/store'
 
-const appName = import.meta.env.VITE_APP_NAME
+const appName = import.meta.env.VITE_APP_TITLE
 
 const appStore = useAppStore()
-const { watermark, layout } = storeToRefs(appStore)
+const { watermark, layoutMode } = storeToRefs(appStore)
 
-const LayoutComponents: Record<LayoutType, Component> = {
+const LayoutComponents: Record<LayoutMode, Component> = {
   vertical: LayoutVertical,
 }
 
@@ -21,7 +21,7 @@ watch(isDark, () => (font.color = isDark.value ? 'rgba(255, 255, 255, .15)' : 'r
 
 <template>
   <el-watermark id="watermark" :font="font" :content="watermark ? [appName] : ''">
-    <component :is="LayoutComponents[layout]" />
+    <component :is="LayoutComponents[layoutMode]" />
     <!-- <preference-drawer /> -->
   </el-watermark>
 </template>

@@ -18,6 +18,10 @@ export interface AuthUserInfoResult {
   roles: string[]
 }
 
+export interface PermissionResult {
+  menus: RouteRecordRaw[]
+}
+
 // get auth user
 export function getAuthUser() {
   return request.get<AuthUserInfoResult>({
@@ -33,9 +37,16 @@ export function login(data: LoginRequest) {
   })
 }
 
+// logout
+export function logout() {
+  return request.post({
+    url: '/logout',
+  })
+}
+
 // get auth user menu
-export function getUserMenu() {
-  return request.get<RouteRecordRaw[]>({
-    url: '/menu',
+export function getUserPermissions() {
+  return request.get<PermissionResult>({
+    url: '/permissions',
   })
 }

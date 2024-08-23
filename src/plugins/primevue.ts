@@ -1,10 +1,10 @@
-// import PrimeVue from 'primevue/config'
-// import Aura from '@primevue/themes/aura'
+import PrimeVue from 'primevue/config'
+import Aura from '@primevue/themes/aura'
 
-// export const install: UserPlugin = (app) => {
-//   app.use(PrimeVue, {
-//     theme: {
-//       preset: Aura,
-//     },
-//   })
-// }
+export const install: UserPlugin = (app) => {
+  app.use(PrimeVue, {
+    theme: {
+      preset: Aura,
+    },
+  })
+}

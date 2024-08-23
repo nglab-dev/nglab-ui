@@ -4,30 +4,34 @@ import type { RouteRecordRaw } from 'vue-router'
 defineProps<{ items: RouteRecordRaw[] }>()
 
 const router = useRouter()
-function handleClickMenu(menuItem: RouteRecordRaw) {
-  // if (menuItem.meta.isLink)
-  //   return window.open(menuItem.meta.isLink, '_blank')
-  router.push(menuItem.path)
+const { t } = useI18n()
+
+function handleClickMenu(menu: RouteRecordRaw) {
+  if (menu.meta?.isExternal) {
+    window.open(menu.path)
+    return
+  }
+  router.push(menu.path)
 }
 </script>
 
 <template>
   <template v-for="item in items" :key="item.path">
-    <el-sub-menu v-if="item.children?.length" :key="item.name" :index="item.path">
+    <el-sub-menu v-if="item.children?.length" :key="item.path" :index="item.path">
       <template #title>
         <el-icon v-if="item.meta?.icon">
           <component :is="item.meta.icon" />
         </el-icon>
-        <span class="sle">{{ item.meta?.title }}</span>
+        <span>{{ t(item.meta?.title || '') }}</span>
       </template>
       <menu-item :items="item.children" />
     </el-sub-menu>
-    <el-menu-item v-else :key="item?.name" :index="item.path" @click="handleClickMenu(item)">
+    <el-menu-item v-else :key="item?.path" :index="item.path" @click="handleClickMenu(item)">
       <el-icon v-if="item.meta?.icon">
         <component :is="item.meta.icon" />
       </el-icon>
       <template #title>
-        <span class="sle">{{ item.meta?.title }}</span>
+        <span>{{ t(item.meta?.title || '') }}</span>
       </template>
     </el-menu-item>
   </template>

@@ -1,5 +1,11 @@
 <script setup lang="ts" name="AppMain">
 import type { RouteLocationNormalizedLoaded } from 'vue-router'
+import Tabs from './Tabs.vue'
+import { useTabsStore } from '@/store'
+
+const tabsStore = useTabsStore()
+
+const cacheList = computed(() => tabsStore.getCacheList)
 
 // 注入刷新页面方法
 const isRouterShow = ref(true)
@@ -22,9 +28,23 @@ function createComponentWrapper(component: Component, route: RouteLocationNormal
 </script>
 
 <template>
-  <router-view v-slot="{ Component, route }">
-    <transition appear name="fade-transform" mode="out-in">
-      <component :is="createComponentWrapper(Component, route)" :key="route.fullPath" />
-    </transition>
-  </router-view>
+  <Tabs />
+  <el-main>
+    <router-view v-slot="{ Component, route }">
+      <transition appear name="fade-transform" mode="out-in">
+        <keep-alive :include="cacheList">
+          <component :is="createComponentWrapper(Component, route)" v-if="isRouterShow" :key="route.fullPath" />
+        </keep-alive>
+      </transition>
+    </router-view>
+  </el-main>
 </template>
+
+<style lang="scss" scoped>
+.el-main {
+  box-sizing: border-box;
+  padding: 10px 12px;
+  overflow-x: hidden;
+  background-color: var(--el-bg-color-page);
+}
+</style>

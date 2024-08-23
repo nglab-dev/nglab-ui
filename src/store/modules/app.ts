@@ -1,26 +1,32 @@
 import { defineStore } from 'pinia'
 
-export type LayoutType = 'vertical'
+export type LayoutMode = 'vertical'
 
-export type MenuLoadType = 'static' | 'dynamic'
+export type MenuMode = 'static' | 'dynamic'
 
 export interface AppState {
-  isCollapsed: boolean
+  // inner state
+  collapsed: boolean
+  contentMaxmized: boolean
+
+  // extra state
   language: string
   watermark: boolean
-  layout: LayoutType
-  menuLoadType: MenuLoadType
+  layoutMode: LayoutMode
+  menuMode: MenuMode
 }
 
 export const useAppStore = defineStore(
   'store-app',
   {
     state: (): AppState => ({
-      isCollapsed: false,
+      collapsed: false,
+      contentMaxmized: false,
+
       language: 'en',
       watermark: false,
-      layout: 'vertical',
-      menuLoadType: 'static',
+      layoutMode: 'vertical',
+      menuMode: 'static',
     }),
     actions: {
 

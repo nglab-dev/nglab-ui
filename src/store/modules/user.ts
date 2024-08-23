@@ -1,15 +1,16 @@
 import { defineStore } from 'pinia'
 import { ElMessage } from 'element-plus'
-import store from '@/store'
 import type { AuthUserInfoResult, LoginRequest } from '@/api/auth'
-import { getAuthUser, login } from '@/api/auth'
+import { getAuthUser, login, logout } from '@/api/auth'
 
 export interface UserState {
   /**
    * 用户token
    */
   token: string
-
+  /**
+   * 用户信息
+   */
   userInfo: AuthUserInfoResult | null
 }
 
@@ -40,7 +41,8 @@ export const useUserStore = defineStore(
         const res = await getAuthUser()
         this.userInfo = res
       },
-      logout() {
+      async logout() {
+        await logout()
         this.$reset()
       },
     },
@@ -50,7 +52,3 @@ export const useUserStore = defineStore(
     },
   },
 )
-
-export function useUserStoreWithOut() {
-  return useUserStore(store)
-}

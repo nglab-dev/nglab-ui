@@ -1,28 +1,28 @@
 <script setup lang="ts" name="LayoutVertical">
+import { storeToRefs } from 'pinia'
 import Header from './components/Header.vue'
-import MainPage from './components/MainPage.vue'
+import Content from './components/Content.vue'
 import MenuItem from './components/MenuItem.vue'
-import { useAppStore } from '@/store'
+import { useAppStore, usePermissionStore } from '@/store'
 
 const route = useRoute()
 const appStore = useAppStore()
-
-const title = import.meta.env.VITE_APP_NAME
-const isCollapse = computed(() => appStore.isCollapsed)
-
-const activedMenu = computed(() => (route.meta.actived ? route.meta.actived : route.name) as string)
-
-const { menuTree } = useMenuTree()
+const permissionStore = usePermissionStore()
+const title = import.meta.env.VITE_APP_TITLE
+const isCollapse = computed(() => appStore.collapsed)
+const activedMenu = computed(() => (route.meta.actived ? route.meta.actived : route.path) as string)
+const menus = computed(() => permissionStore.getMenus)
+const { contentMaxmized } = storeToRefs(appStore)
 </script>
 
 <template>
   <el-container class="app-container">
-    <el-aside class="app-aside">
-      <div class="app-aside-wrapper" :style="{ width: isCollapse ? '65px' : '240px' }">
+    <el-aside v-show="!contentMaxmized" class="app-aside">
+      <div class="app-aside-wrapper" :style="{ width: isCollapse ? '65px' : '220px' }">
         <!-- logo -->
         <div class="app-logo">
           <img class="w-28px object-contain" src="@/assets/images/logo.svg" alt="logo">
-          <span v-show="!isCollapse" class="ml-2 ws-nowrap text-2xl font-bold">{{ title }}</span>
+          <span v-show="!isCollapse" class="ml-4 ws-nowrap text-2xl font-bold">{{ title }}</span>
         </div>
         <el-scrollbar class="app-aside-scrollbar">
           <el-menu
@@ -31,19 +31,17 @@ const { menuTree } = useMenuTree()
             :collapse="isCollapse"
             :collapse-transition="false"
           >
-            <MenuItem :items="menuTree" />
+            <MenuItem :items="menus" />
           </el-menu>
         </el-scrollbar>
       </div>
     </el-aside>
 
     <el-container>
-      <el-header class="app-header">
+      <el-header v-show="!contentMaxmized" class="app-header">
         <Header />
       </el-header>
-      <el-main>
-        <MainPage />
-      </el-main>
+      <Content />
     </el-container>
   </el-container>
 </template>
@@ -88,5 +86,9 @@ const { menuTree } = useMenuTree()
   padding: 0 15px;
   background-color: var(--el-bg-color);
   border-bottom: 1px solid var(--el-border-color);
+}
+
+.el-menu {
+  border-right: none;
 }
 </style>

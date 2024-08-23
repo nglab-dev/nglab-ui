@@ -1,9 +1,9 @@
-<script setup lang="ts" name="FullScreenSwitcher">
+<script setup lang="ts">
 const { isFullscreen, toggle } = useFullscreen()
 </script>
 
 <template>
-  <el-button circle text @click="toggle()">
+  <a class="icon-btn" @click="toggle()">
     <div :class="`${isFullscreen ? 'i-lucide-minimize' : 'i-lucide-maximize'}`" />
-  </el-button>
+  </a>
 </template>
